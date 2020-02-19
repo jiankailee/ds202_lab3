@@ -22,6 +22,7 @@ dat1<-as.data.frame(dat)
 names(dat1)<-c('year','id','labor','hours','married','sex','political','happines','ballot')
 head(dat1)
 
+#ggplot(dat1,aes(x=married))
 
 
 ```
