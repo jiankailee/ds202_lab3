@@ -18,8 +18,11 @@ When you click the **Knit** button a document will be generated that includes bo
 ```{r}
 
 dat <- readxl::read_xls('/home/jk/Documents/ds202_lab3/GSS.xls')
-head(dat)
-str(dat)
+dat1<-as.data.frame(dat)
+names(dat1)<-c('year','id','labor','hours','married','sex','political','happines','ballot')
+head(dat1)
+
+
 
 ```
 

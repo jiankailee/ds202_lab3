@@ -378,29 +378,69 @@ summary {
 ## Expecting numeric in A64817 / R64817C1: got 'Source'</code></pre>
 <pre><code>## Warning in read_fun(path = enc2native(normalizePath(path)), sheet_i = sheet, : Expecting numeric in B64817 / R64817C2: got 'Data collection: General Social Survey
 ## Case Selection: all cases'</code></pre>
-<pre class="r"><code>head(dat)</code></pre>
-<pre><code>## # A tibble: 6 x 8
-##   `Gss year for t… `Respondent id … `Rs census occu… `Marital status`
+<pre class="r"><code>dat1&lt;-as.data.frame(dat)
+head(dat)</code></pre>
+<pre><code>## # A tibble: 6 x 9
+##   `Gss year for t… `Respondent id … `Labor force st… `Number of hour…
 ##              &lt;dbl&gt;            &lt;dbl&gt; &lt;chr&gt;            &lt;chr&gt;           
-## 1             1972                1 Wholesale and r… Never married   
-## 2             1972                2 First-line supe… Married         
-## 3             1972                3 Real estate bro… Married         
-## 4             1972                4 Accountants and… Married         
-## 5             1972                5 Telephone opera… Married         
-## 6             1972                6 Sales represent… Never married   
-## # … with 4 more variables: `Respondents sex` &lt;chr&gt;, `Political party
-## #   affiliation` &lt;chr&gt;, `General happiness` &lt;chr&gt;, `Ballot used for
-## #   interview` &lt;chr&gt;</code></pre>
+## 1             1972                1 Working fulltime Not applicable  
+## 2             1972                2 Retired          Not applicable  
+## 3             1972                3 Working parttime Not applicable  
+## 4             1972                4 Working fulltime Not applicable  
+## 5             1972                5 Keeping house    Not applicable  
+## 6             1972                6 Working fulltime Not applicable  
+## # … with 5 more variables: `Marital status` &lt;chr&gt;, `Respondents sex` &lt;chr&gt;,
+## #   `Political party affiliation` &lt;chr&gt;, `General happiness` &lt;chr&gt;, `Ballot
+## #   used for interview` &lt;chr&gt;</code></pre>
+<pre class="r"><code>head(dat1)</code></pre>
+<pre><code>##   Gss year for this respondent Respondent id number Labor force status
+## 1                         1972                    1   Working fulltime
+## 2                         1972                    2            Retired
+## 3                         1972                    3   Working parttime
+## 4                         1972                    4   Working fulltime
+## 5                         1972                    5      Keeping house
+## 6                         1972                    6   Working fulltime
+##   Number of hours usually work a week Marital status Respondents sex
+## 1                      Not applicable  Never married          Female
+## 2                      Not applicable        Married            Male
+## 3                      Not applicable        Married          Female
+## 4                      Not applicable        Married          Female
+## 5                      Not applicable        Married          Female
+## 6                      Not applicable  Never married            Male
+##   Political party affiliation General happiness Ballot used for interview
+## 1                Ind,near dem     Not too happy            Not applicable
+## 2            Not str democrat     Not too happy            Not applicable
+## 3                 Independent      Pretty happy            Not applicable
+## 4            Not str democrat     Not too happy            Not applicable
+## 5             Strong democrat      Pretty happy            Not applicable
+## 6                Ind,near dem      Pretty happy            Not applicable</code></pre>
 <pre class="r"><code>str(dat)</code></pre>
-<pre><code>## Classes 'tbl_df', 'tbl' and 'data.frame':    64816 obs. of  8 variables:
-##  $ Gss year for this respondent    : num  1972 1972 1972 1972 1972 ...
-##  $ Respondent id number            : num  1 2 3 4 5 6 7 8 9 10 ...
-##  $ Rs census occupation code (2010): chr  &quot;Wholesale and retail buyers, except farm products&quot; &quot;First-line supervisors of production and operating workers&quot; &quot;Real estate brokers and sales agents&quot; &quot;Accountants and auditors&quot; ...
-##  $ Marital status                  : chr  &quot;Never married&quot; &quot;Married&quot; &quot;Married&quot; &quot;Married&quot; ...
-##  $ Respondents sex                 : chr  &quot;Female&quot; &quot;Male&quot; &quot;Female&quot; &quot;Female&quot; ...
-##  $ Political party affiliation     : chr  &quot;Ind,near dem&quot; &quot;Not str democrat&quot; &quot;Independent&quot; &quot;Not str democrat&quot; ...
-##  $ General happiness               : chr  &quot;Not too happy&quot; &quot;Not too happy&quot; &quot;Pretty happy&quot; &quot;Not too happy&quot; ...
-##  $ Ballot used for interview       : chr  &quot;Not applicable&quot; &quot;Not applicable&quot; &quot;Not applicable&quot; &quot;Not applicable&quot; ...</code></pre>
+<pre><code>## Classes 'tbl_df', 'tbl' and 'data.frame':    64816 obs. of  9 variables:
+##  $ Gss year for this respondent       : num  1972 1972 1972 1972 1972 ...
+##  $ Respondent id number               : num  1 2 3 4 5 6 7 8 9 10 ...
+##  $ Labor force status                 : chr  &quot;Working fulltime&quot; &quot;Retired&quot; &quot;Working parttime&quot; &quot;Working fulltime&quot; ...
+##  $ Number of hours usually work a week: chr  &quot;Not applicable&quot; &quot;Not applicable&quot; &quot;Not applicable&quot; &quot;Not applicable&quot; ...
+##  $ Marital status                     : chr  &quot;Never married&quot; &quot;Married&quot; &quot;Married&quot; &quot;Married&quot; ...
+##  $ Respondents sex                    : chr  &quot;Female&quot; &quot;Male&quot; &quot;Female&quot; &quot;Female&quot; ...
+##  $ Political party affiliation        : chr  &quot;Ind,near dem&quot; &quot;Not str democrat&quot; &quot;Independent&quot; &quot;Not str democrat&quot; ...
+##  $ General happiness                  : chr  &quot;Not too happy&quot; &quot;Not too happy&quot; &quot;Pretty happy&quot; &quot;Not too happy&quot; ...
+##  $ Ballot used for interview          : chr  &quot;Not applicable&quot; &quot;Not applicable&quot; &quot;Not applicable&quot; &quot;Not applicable&quot; ...</code></pre>
+<pre class="r"><code>names(dat1)&lt;-c('year','id','labor','hours','married','sex','political','happines','ballot')
+head(dat1)</code></pre>
+<pre><code>##   year id            labor          hours       married    sex        political
+## 1 1972  1 Working fulltime Not applicable Never married Female     Ind,near dem
+## 2 1972  2          Retired Not applicable       Married   Male Not str democrat
+## 3 1972  3 Working parttime Not applicable       Married Female      Independent
+## 4 1972  4 Working fulltime Not applicable       Married Female Not str democrat
+## 5 1972  5    Keeping house Not applicable       Married Female  Strong democrat
+## 6 1972  6 Working fulltime Not applicable Never married   Male     Ind,near dem
+##        happines         ballot
+## 1 Not too happy Not applicable
+## 2 Not too happy Not applicable
+## 3  Pretty happy Not applicable
+## 4 Not too happy Not applicable
+## 5  Pretty happy Not applicable
+## 6  Pretty happy Not applicable</code></pre>
 </div>
 
 
