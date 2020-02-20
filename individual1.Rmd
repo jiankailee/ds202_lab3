@@ -15,16 +15,31 @@ This is an R Markdown document. Markdown is a simple formatting syntax for autho
 
 When you click the **Knit** button a document will be generated that includes both content as well as the output of any embedded R code chunks within the document. You can embed an R code chunk like this:
 
+ problem 1,3,5,7 
 ```{r}
-
-dat <- readxl::read_xls('/home/jk/Documents/ds202_lab3/GSS.xls')
+library(ggplot2)
+library(ggmosaic)
+dat <- readxl::read_xls('GSS.xls')
 dat1<-as.data.frame(dat)
-names(dat1)<-c('year','id','labor','hours','married','sex','political','happines','ballot')
+names(dat1)<-c('year','id','labor','hours','married','sex','political','happiness','ballot')
 head(dat1)
 
-#ggplot(dat1,aes(x=married))
+#1 How does the happiness of a respondent relate to the marriage status?
+ggplot(dat1,aes(x=married))+geom_bar(aes(fill=happiness),position="dodge")
+
+#3 How does the happiness of a respondent relate to the political party affiliation?
+ggplot(dat1,aes(x=political))+geom_bar(aes(fill=happiness))
+ggplot(dat1)+geom_mosaic(aes(x=product(political),fill=happiness))
+
+# 5 happiness vs labor married
+ggplot(dat1)+geom_mosaic(aes(x=product(sex),fill=happiness))+facet_grid(political~married)
 
 
+# year vs political party
+dat2<-dat1[!is.na(dat1$year),]
+
+ggplot(dat2,aes(x=year))+geom_bar(aes(fill=political),position = "fill")
+unique(dat2$year)
 ```
 
 
