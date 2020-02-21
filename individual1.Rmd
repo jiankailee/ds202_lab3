@@ -16,7 +16,7 @@ This is an R Markdown document. Markdown is a simple formatting syntax for autho
 When you click the **Knit** button a document will be generated that includes both content as well as the output of any embedded R code chunks within the document. You can embed an R code chunk like this:
 
  problem 1,3,5,7 
-```{r}
+```{r fig.width=15, fig.height=10}
 library(ggplot2)
 library(ggmosaic)
 dat <- readxl::read_xls('GSS.xls')
@@ -25,22 +25,31 @@ names(dat1)<-c('year','id','labor','hours','married','sex','political','happines
 head(dat1)
 
 #1 How does the happiness of a respondent relate to the marriage status?
-ggplot(dat1,aes(x=married))+geom_bar(aes(fill=happiness),position="dodge")
+dat2<-dat1[!is.na(dat1$married),]
+ggplot(dat2,aes(x=married))+geom_bar(aes(fill=happiness),position="fill")
+
 
 #3 How does the happiness of a respondent relate to the political party affiliation?
-ggplot(dat1,aes(x=political))+geom_bar(aes(fill=happiness))
-ggplot(dat1)+geom_mosaic(aes(x=product(political),fill=happiness))
+dat2<-dat1[!is.na(dat1$political),]
+ggplot(dat2,aes(x=political))+geom_bar(aes(fill=happiness),position="fill")
 
-# 5 happiness vs labor married
-ggplot(dat1)+geom_mosaic(aes(x=product(sex),fill=happiness))+facet_grid(political~married)
-
+# 5 happiness vs labor
+ggplot(dat1)+geom_mosaic(aes(x=product(labor),fill=happiness))
+#ggplot(dat1)+geom_mosaic(aes(x=product(sex),fill=happiness))+facet_grid(married)
 
 # year vs political party
 dat2<-dat1[!is.na(dat1$year),]
-
-ggplot(dat2,aes(x=year))+geom_bar(aes(fill=political),position = "fill")
+dat2<-dat2[dat2$year==2018,]
+head(dat2$year)
+ggplot(dat2)+geom_mosaic(aes(x=product(year),fill=political))+facet_grid(sex~married)
+#ggplot(dat2,aes(x=dat2$year))+geom_bar(aes(fill=political))
 unique(dat2$year)
 ```
+1 To find the relationship between the happiness of a respondent and marrage status, we use precent stacked barchart to reveal the percentage of each happiness in each married status. First, we filter out the married status that are NA. After that, we use ggplot barchart plot with x to married status and fill each bar with happiness. We also set the position to fill to display the percent of each happiness in each bar. In bar plot, the married has the highest percentage of "very happy" happiness compared to other. The separated status in married has the lowest percentage among all. For the "not too happy" happiness, the seperated has the highest rate. In the married status, total of pretty happy and very happy has the highest rate compared to other. From here, we can see the relationship the married status or never married are higher happiness than those divorced, separated or widowed status.
+
+3 To find the relationship between happiness and political party, we use percent stacked bar plot to show the happiness of each political party. On the x axis, we display political party, y axis show the percentage and fill each bar with happiness. In the plot, we can see the respondents have no political party affiliation tend to be very happy than other who have political affiliation. The percentage of happy which include "pretty happy" and "very happy" of each political party are quite close to 0.75 count. There is no significant show which political party is more happy. In the other side, no political party preferred respondents have the higest rate of not too happy among all. 
+
+5 How does the happiness ratio in each of working status in the dataset and comparison ? 
 
 
 
