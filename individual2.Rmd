@@ -1,0 +1,24 @@
+---
+title: "Lab 3"
+author: "Nick Matthews"
+date: "2/19/2020"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+#### Problems 2, 4(own question), 6(own question)
+
+```{r}
+
+dat <- readxl::read_xls('GSS.xls')
+dat1<-as.data.frame(dat)
+names(dat1)<-c('year','id','labor','hours','married','sex','political','happiness','ballot')
+str(dat1)
+
+#ggplot(dat1,aes(x=married))
+
+
+```
