@@ -52,9 +52,11 @@ unique(dat2$year)
 3 To find the relationship between happiness and political party, we use percent stacked bar plot to show the happiness of each political party. On the x axis, we display political party, y axis show the percentage and fill each bar with happiness. In the plot, we can see the respondents have no political party affiliation tend to be very happy than other who have political affiliation. The percentage of happy which include "pretty happy" and "very happy" of each political party are quite close to 0.75 count. There is no significant show which political party is more happy. In the other side, no political party preferred respondents have the higest rate of not too happy among all. 
 
 5 How does the happiness ratio in each of working status in the dataset and the ratio of labor status in the dataset ? 
+
 To see the happiness ratio and the labor status ratio in the dataset, we use ggplot with matrix mosaic plot x axis filled with labor and each bar filled with happiness. From the plot, we can see our data set contain a higher ratio of working full respondents, second are keeping house and retired respondents. In addition, there are small amount of respondents in "School", "Temporary not working", "unemploy and laid" and Other. In each bar of labor status, the ratio of very happy in quite the same among all labor status except the Unemploy has the lowest ratio and approximately half of working full less in terms of very happy. Similarly to respondent answered "other",it has a low very happy ratio. "Unemploy, laid out" has the high ratio of "not too happy" compared to other. In the plot, it show the ratio of happiness in each labor status and the comparison of happiness in all labor status.
 
 7 What are the ratio of political affiliation in each sex and married status in 2018?
+
 First, we filter out the NA value in year in the data set and extract the data only in 2018. We then use ggplot with masaic and facet grid to show the matrix. x variable in mosaic is year and and filled with political affiliation. The matrix grid are sex vs married. In the plot, we the political ratio of each married status and sex. From the plot, we can see in the widowed married have the largest ratio pf strong democrat in female and male and compared to other.
 
 
