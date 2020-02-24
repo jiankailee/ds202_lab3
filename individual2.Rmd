@@ -1,5 +1,5 @@
 ---
-title: "Lab 3"
+title: "ds202_lab3"
 author: "Nick Matthews"
 date: "2/19/2020"
 output: html_document
@@ -16,9 +16,25 @@ knitr::opts_chunk$set(echo = TRUE)
 dat <- readxl::read_xls('GSS.xls')
 dat1<-as.data.frame(dat)
 names(dat1)<-c('year','id','labor','hours','married','sex','political','happiness','ballot')
-str(dat1)
 
 #ggplot(dat1,aes(x=married))
 
+```
+
+```{r}
+
+library(ggplot2)
+library(cowplot)
+
+dat2<-dat1[!is.na(dat1$married),]
+dat2_male <- dat2[dat2$sex == "Female",]
+dat2_female <- dat2[dat2$sex == "Male",]
+male_happ <-  ggplot(dat2_male,aes(x=married))+geom_bar(aes(fill=happiness),position="fill") + ggtitle("Male") +
+  theme(axis.text.x = element_text(angle = 90))
+female_happ <- ggplot(dat2_female,aes(x=married))+geom_bar(aes(fill=happiness),position="fill") + ggtitle("Female") +
+  theme(axis.text.x = element_text(angle = 90))
+
+plot_grid(male_happ,female_happ)
 
 ```
+
