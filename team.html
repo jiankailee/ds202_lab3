@@ -9,7 +9,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=EDGE" />
 
 
-<meta name="author" content="Jian Kai Lee;jiankailee" />
+<meta name="author" content="Nick Matthews;Jian Kai Lee" />
 
 
 <title>ds202_lab3</title>
@@ -363,17 +363,12 @@ summary {
 
 
 <h1 class="title toc-ignore">ds202_lab3</h1>
-<h4 class="author">Jian Kai Lee;jiankailee</h4>
-<h4 class="date">2/19/2020</h4>
+<h4 class="author">Nick Matthews;Jian Kai Lee</h4>
+<h4 class="date">2/26/2020</h4>
 
 </div>
 
 
-<div id="r-markdown" class="section level2">
-<h2>R Markdown</h2>
-<p>This is an R Markdown document. Markdown is a simple formatting syntax for authoring HTML, PDF, and MS Word documents. For more details on using R Markdown see <a href="http://rmarkdown.rstudio.com" class="uri">http://rmarkdown.rstudio.com</a>.</p>
-<p>When you click the <strong>Knit</strong> button a document will be generated that includes both content as well as the output of any embedded R code chunks within the document. You can embed an R code chunk like this:</p>
-<p>problem 1,3,5,7</p>
 <pre class="r"><code>library(ggplot2)
 library(ggmosaic)
 dat &lt;- readxl::read_xls('GSS.xls')</code></pre>
@@ -475,7 +470,6 @@ unique(dat2$year)</code></pre>
 <p>5 How does the happiness ratio in each of working status in the dataset and the ratio of labor status in the dataset ? To see the happiness ratio and the labor status ratio in the dataset, we use ggplot with matrix mosaic plot x axis filled with labor and each bar filled with happiness. From the plot, we can see our data set contain a higher ratio of working full respondents, second are keeping house and retired respondents. In addition, there are small amount of respondents in “School”, “Temporary not working”, “unemploy and laid” and Other. In each bar of labor status, the ratio of very happy in quite the same among all labor status except the Unemploy has the lowest ratio and approximately half of working full less in terms of very happy. Similarly to respondent answered “other”,it has a low very happy ratio. “Unemploy, laid out” has the high ratio of “not too happy” compared to other. In the plot, it show the ratio of happiness in each labor status and the comparison of happiness in all labor status.</p>
 <p>6 To find the percentages of male and female political affiliations, I decided to try pie charts. I used the ggplot bar chart and then used coord_polar to make the bar chart a circle. I split up the data into both sexes and compared them side by side. If you look closely, It appears that males are slightly more republican and females are more democratic from these respondents. Furthermore, males who were independant leaned more toward republican whereas females who are independant leaned more toward democrat.</p>
 <p>7 What are the ratio of political affiliation in each sex and married status in 2018? First, we filter out the NA value in year in the data set and extract the data only in 2018. We then use ggplot with masaic and facet grid to show the matrix. x variable in mosaic is year and and filled with political affiliation. The matrix grid are sex vs married. In the plot, we the political ratio of each married status and sex. From the plot, we can see in the widowed married have the largest ratio pf strong democrat in female and male and compared to other.</p>
-</div>
 
 
 

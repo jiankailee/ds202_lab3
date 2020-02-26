@@ -27,14 +27,48 @@ library(ggplot2)
 library(cowplot)
 
 dat2<-dat1[!is.na(dat1$married),]
+
 dat2_male <- dat2[dat2$sex == "Female",]
 dat2_female <- dat2[dat2$sex == "Male",]
-male_happ <-  ggplot(dat2_male,aes(x=married))+geom_bar(aes(fill=happiness),position="fill") + ggtitle("Male") +
-  theme(axis.text.x = element_text(angle = 90))
-female_happ <- ggplot(dat2_female,aes(x=married))+geom_bar(aes(fill=happiness),position="fill") + ggtitle("Female") +
-  theme(axis.text.x = element_text(angle = 90))
+male_happ <-  ggplot(dat2_male,aes(x=married))+geom_bar(aes(fill=happiness),position="fill") + ggtitle("Male") + theme(axis.text.x = element_text(angle = 90))
+female_happ <- ggplot(dat2_female,aes(x=married))+geom_bar(aes(fill=happiness),position="fill") + ggtitle("Female") + theme(axis.text.x = element_text(angle = 90))
 
 plot_grid(male_happ,female_happ)
 
 ```
 
+To see the differences between male and female happiness for each marriage status, we again used a stacked barplot that displays the number of respondents for each happiness level and different bars for each marriage status. Then, to make them easier to read. I placed them side by side and made the x-axis labels vertical. To answer this question, there isn't much statistical difference between the happiness levels of male and female genders. One of the somewhat prominant differences lies within the "No answer" column of our graphs. When there is no answer for the marriage status, females appear record "Very happy" more.
+
+#### How does the happiness of very happy males and female who are married change over time
+```{r}
+library(dplyr)
+
+dat2 <- dat1[!is.na(dat1$happiness == "Very happy" & dat1$married == "Married"),]
+
+happiness_freq = count(dat2, sex, year)
+
+ggplot(data = happiness_freq, mapping = aes(x=year, y=n, group=sex, color=sex)) + geom_line() + ylab("Number of respondents") + xlab("Year") + ggtitle("Male and Female Respondents That Are Very Happy and Married vs Time")
+
+```
+
+### What percentage of male and female political affiliations
+```{r}
+
+datc <- na.omit(dat1)
+
+male <- datc[datc$sex == "Male",]
+female <- datc[datc$sex == "Female",]
+male_political_count = count(male,political)
+female_political_count = count(female,political)
+male_political_count
+female_political_count
+
+malepie <- ggplot(data = male_political_count, aes(x="", y=n, fill=political)) + 
+  geom_bar(stat = "identity", width = 1, color="white") + coord_polar("y", start=0) + theme_void() + ggtitle("Male Respondants")
+
+femalepie <- ggplot(data = female_political_count, aes(x="", y=n, fill=political)) + 
+  geom_bar(stat = "identity", width = 1, color="white") + coord_polar("y", start=0) + theme_void() + ggtitle("Female Respondants")
+
+plot_grid(malepie,femalepie)
+
+```
