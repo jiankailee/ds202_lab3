@@ -15,12 +15,18 @@ library(ggmosaic)
 dat <- readxl::read_xls('GSS.xls')
 dat1<-as.data.frame(dat)
 names(dat1)<-c('year','id','labor','hours','married','sex','political','happiness','ballot')
+```
 
-#1 How does the happiness of a respondent relate to the marriage status?
+### 1 How does the happiness of a respondent relate to the marriage status?
+```{r}
 dat2<-dat1[!is.na(dat1$married),]
 ggplot(dat2,aes(x=married))+geom_bar(aes(fill=happiness),position="fill")
+```
 
-#2 Does the sex of the respondent affect the relationship you found in Q1?
+To find the relationship between the happiness of a respondent and marrage status, we use precent stacked barchart to reveal the percentage of each happiness in each married status. First, we filter out the married status that are NA. After that, we use ggplot barchart plot with x to married status and fill each bar with happiness. We also set the position to fill to display the percent of each happiness in each bar. In bar plot, the married has the highest percentage of "very happy" happiness compared to other. The separated status in married has the lowest percentage among all. For the "not too happy" happiness, the seperated has the highest rate. In the married status, total of pretty happy and very happy has the highest rate compared to other. From here, we can see the relationship the married status or never married are higher happiness than those divorced, separated or widowed status.
+
+### 2 Does the sex of the respondent affect the relationship you found in Q1?
+```{r}
 library(cowplot)
 dat2<- na.omit(dat1)
 dat2_male <- dat2[dat2$sex == "Female",]
@@ -28,24 +34,42 @@ dat2_female <- dat2[dat2$sex == "Male",]
 male_happ <-  ggplot(dat2_male,aes(x=married))+geom_bar(aes(fill=happiness),position="fill") + ggtitle("Male") + theme(axis.text.x = element_text(angle = 90))
 female_happ <- ggplot(dat2_female,aes(x=married))+geom_bar(aes(fill=happiness),position="fill") + ggtitle("Female") + theme(axis.text.x = element_text(angle = 90))
 plot_grid(male_happ,female_happ)
+```
 
-#3 How does the happiness of a respondent relate to the political party affiliation?
+To see if the sex had any effect on the relationship between happiness and relationship status, I essentially split apart the first graph into both genders individually. Looking at the 2 charts, the most noticeable difference is seen in the "No answer" column of the relationship status. It appears that females had less "Don't know" answers and more "very happy" answers for happiness when they had no answer for their relationship status. Other than that, the sex of the respondent doesn't really effect the relationship in question 1. 
+
+### 3 How does the happiness of a respondent relate to the political party affiliation?
+```{r}
 dat2<-dat1[!is.na(dat1$political),]
-ggplot(dat2,aes(x=political))+geom_bar(aes(fill=happiness),position="fill")
+ggplot(dat2,aes(x=political))+geom_bar(aes(fill=happiness),position="fill") + theme(axis.text.x = element_text(angle = 90))
+```
 
-#4 How does the number of respondents for very happy males and female who are married change over time?
+To find the relationship between happiness and political party, we use percent stacked bar plot to show the happiness of each political party. On the x axis, we display political party, y axis show the percentage and fill each bar with happiness. In the plot, we can see the respondents have no political party affiliation tend to be very happy than other who have political affiliation. The percentage of happy which include "pretty happy" and "very happy" of each political party are quite close to 0.75 count. There is no significant show which political party is more happy. In the other side, no political party preferred respondents have the higest rate of not too happy among all. 
+
+### 4 How does the number of respondents for very happy males and female who are married change over time?
+```{r}
 library(dplyr)
 dat2 <- dat1[!is.na(dat1$happiness == "Very happy" & dat1$married == "Married"),]
 happiness_freq = count(dat2, sex, year)
 ggplot(data = happiness_freq, mapping = aes(x=year, y=n, group=sex, color=sex)) + geom_line() + ylab("Number of respondents (Very happy and Married") + xlab("Year") + ggtitle("Male and Female Respondents That Are Very Happy and Married vs Time")
+```
 
-# 5 happiness vs labor
+To find the relationship between Male and Female who are married and very happy vs time, I used a line plot since we are
+dealing with the continuous variable time. It's important to note that the line is measuring the NUMBER OF RESPONDENTS who are
+married and very happy. Becuase of this, the fact that the female line is higher just shows that there were more female respondents reporting that they are married and very happy. The important part is the shape of the lines, which tells us how the number of respondents changes for each year for male and female
+
+### 5 How does the happiness ratio in each of working status in the dataset and the ratio of labor status in the dataset?
+```{r}
 dat2<-dat1[!is.na(dat1$labor),]
 ggplot(dat2)+geom_mosaic(aes(x=product(labor),fill=happiness)) + theme(axis.text.x = element_text(angle = 90))
 unique(dat2$labor)
 #ggplot(dat1)+geom_mosaic(aes(x=product(sex),fill=happiness))+facet_grid(married)
+```
 
-#6 What are the percentages of male and female political affiliations. Are females more democratic than males?
+To see the happiness ratio and the labor status ratio in the dataset, we use ggplot with matrix mosaic plot x axis filled with labor and each bar filled with happiness. From the plot, we can see our data set contain a higher ratio of working full respondents, second are keeping house and retired respondents. In addition, there are small amount of respondents in "School", "Temporary not working", "unemploy and laid" and Other. In each bar of labor status, the ratio of very happy in quite the same among all labor status except the Unemploy has the lowest ratio and approximately half of working full less in terms of very happy. Similarly to respondent answered "other",it has a low very happy ratio. "Unemploy, laid out" has the high ratio of "not too happy" compared to other. In the plot, it show the ratio of happiness in each labor status and the comparison of happiness in all labor status.
+
+### 6 What are the percentages of male and female political affiliations. Are females more democratic than males?
+```{r}
 datc <- na.omit(dat1)
 male <- datc[datc$sex == "Male",]
 female <- datc[datc$sex == "Female",]
@@ -56,8 +80,16 @@ malepie <- ggplot(data = male_political_count, aes(x="", y=n, fill=political)) +
 femalepie <- ggplot(data = female_political_count, aes(x="", y=n, fill=political)) + 
   geom_bar(stat = "identity", width = 1, color="white") + coord_polar("y", start=0) + theme_void() + ggtitle("Female Respondants")
 plot_grid(malepie,femalepie)
+```
 
-# year vs political party
+To find the percentages of male and female political affiliations, I decided to try pie charts. I used the ggplot bar chart
+and then used coord_polar to make the bar chart a circle. I split up the data into both sexes and compared them side by side.
+If you look closely, It appears that males are slightly more republican and females are more democratic from these respondents.
+Furthermore, males who were independant leaned more toward republican whereas females who are independant leaned more toward
+democrat.
+
+### 7 ratio of political affiliation in each sex and married status in 2018?
+```{r}
 dat2<-dat1[!is.na(dat1$year),]
 dat2<-dat2[dat2$year==2018,]
 head(dat2$year)
@@ -65,24 +97,5 @@ ggplot(dat2)+geom_mosaic(aes(x=product(year),fill=political))+facet_grid(sex~mar
 #ggplot(dat2,aes(x=dat2$year))+geom_bar(aes(fill=political))
 unique(dat2$year)
 ```
-1 To find the relationship between the happiness of a respondent and marrage status, we use precent stacked barchart to reveal the percentage of each happiness in each married status. First, we filter out the married status that are NA. After that, we use ggplot barchart plot with x to married status and fill each bar with happiness. We also set the position to fill to display the percent of each happiness in each bar. In bar plot, the married has the highest percentage of "very happy" happiness compared to other. The separated status in married has the lowest percentage among all. For the "not too happy" happiness, the seperated has the highest rate. In the married status, total of pretty happy and very happy has the highest rate compared to other. From here, we can see the relationship the married status or never married are higher happiness than those divorced, separated or widowed status.
 
-2 To see if the sex had any effect on the relationship between happiness and relationship status, I essentially split apart the first graph into both genders individually. Looking at the 2 charts, the most noticeable difference is seen in the "No answer" column of the relationship status. It appears that females had less "Don't know" answers and more "very happy" answers for happiness when they had no answer for their relationship status. Other than that, the sex of the respondent doesn't really effect the relationship in question 1. 
-
-3 To find the relationship between happiness and political party, we use percent stacked bar plot to show the happiness of each political party. On the x axis, we display political party, y axis show the percentage and fill each bar with happiness. In the plot, we can see the respondents have no political party affiliation tend to be very happy than other who have political affiliation. The percentage of happy which include "pretty happy" and "very happy" of each political party are quite close to 0.75 count. There is no significant show which political party is more happy. In the other side, no political party preferred respondents have the higest rate of not too happy among all. 
-
-4 To find the relationship between Male and Female who are married and very happy vs time, I used a line plot since we are
-dealing with the continuous variable time. It's important to note that the line is measuring the NUMBER OF RESPONDENTS who are
-married and very happy. Becuase of this, the fact that the female line is higher just shows that there were more female respondents reporting that they are married and very happy. The important part is the shape of the lines, which tells us how the number of respondents changes for each year for male and female
-
-5 How does the happiness ratio in each of working status in the dataset and the ratio of labor status in the dataset ? 
-To see the happiness ratio and the labor status ratio in the dataset, we use ggplot with matrix mosaic plot x axis filled with labor and each bar filled with happiness. From the plot, we can see our data set contain a higher ratio of working full respondents, second are keeping house and retired respondents. In addition, there are small amount of respondents in "School", "Temporary not working", "unemploy and laid" and Other. In each bar of labor status, the ratio of very happy in quite the same among all labor status except the Unemploy has the lowest ratio and approximately half of working full less in terms of very happy. Similarly to respondent answered "other",it has a low very happy ratio. "Unemploy, laid out" has the high ratio of "not too happy" compared to other. In the plot, it show the ratio of happiness in each labor status and the comparison of happiness in all labor status.
-
-6 To find the percentages of male and female political affiliations, I decided to try pie charts. I used the ggplot bar chart
-and then used coord_polar to make the bar chart a circle. I split up the data into both sexes and compared them side by side.
-If you look closely, It appears that males are slightly more republican and females are more democratic from these respondents.
-Furthermore, males who were independant leaned more toward republican whereas females who are independant leaned more toward
-democrat.
-
-7 What are the ratio of political affiliation in each sex and married status in 2018?
 First, we filter out the NA value in year in the data set and extract the data only in 2018. We then use ggplot with masaic and facet grid to show the matrix. x variable in mosaic is year and and filled with political affiliation. The matrix grid are sex vs married. In the plot, we the political ratio of each married status and sex. From the plot, we can see in the widowed married have the largest ratio pf strong democrat in female and male and compared to other.

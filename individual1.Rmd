@@ -65,7 +65,7 @@ femalepie <- ggplot(data = female_political_count, aes(x="", y=n, fill=political
   geom_bar(stat = "identity", width = 1, color="white") + coord_polar("y", start=0) + theme_void() + ggtitle("Female Respondants")
 plot_grid(malepie,femalepie)
 
-# year vs political party
+#year vs political party
 dat2<-dat1[!is.na(dat1$year),]
 dat2<-dat2[dat2$year==2018,]
 head(dat2$year)
