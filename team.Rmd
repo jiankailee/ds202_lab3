@@ -15,7 +15,6 @@ library(ggmosaic)
 dat <- readxl::read_xls('GSS.xls')
 dat1<-as.data.frame(dat)
 names(dat1)<-c('year','id','labor','hours','married','sex','political','happiness','ballot')
-head(dat1)
 
 #1 How does the happiness of a respondent relate to the marriage status?
 dat2<-dat1[!is.na(dat1$married),]
@@ -87,5 +86,3 @@ democrat.
 
 7 What are the ratio of political affiliation in each sex and married status in 2018?
 First, we filter out the NA value in year in the data set and extract the data only in 2018. We then use ggplot with masaic and facet grid to show the matrix. x variable in mosaic is year and and filled with political affiliation. The matrix grid are sex vs married. In the plot, we the political ratio of each married status and sex. From the plot, we can see in the widowed married have the largest ratio pf strong democrat in female and male and compared to other.
-
-

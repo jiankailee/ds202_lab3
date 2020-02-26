@@ -84,6 +84,7 @@ dealing with the continuous variable time. It's important to note that the line 
 married and very happy. Becuase of this, the fact that the female line is higher just shows that there were more female respondents reporting that they are married and very happy. The important part is the shape of the lines, which tells us how the number of respondents changes for each year for male and female
 
 5 How does the happiness ratio in each of working status in the dataset and the ratio of labor status in the dataset ? 
+
 To see the happiness ratio and the labor status ratio in the dataset, we use ggplot with matrix mosaic plot x axis filled with labor and each bar filled with happiness. From the plot, we can see our data set contain a higher ratio of working full respondents, second are keeping house and retired respondents. In addition, there are small amount of respondents in "School", "Temporary not working", "unemploy and laid" and Other. In each bar of labor status, the ratio of very happy in quite the same among all labor status except the Unemploy has the lowest ratio and approximately half of working full less in terms of very happy. Similarly to respondent answered "other",it has a low very happy ratio. "Unemploy, laid out" has the high ratio of "not too happy" compared to other. In the plot, it show the ratio of happiness in each labor status and the comparison of happiness in all labor status.
 
 6 To find the percentages of male and female political affiliations, I decided to try pie charts. I used the ggplot bar chart
@@ -93,6 +94,7 @@ Furthermore, males who were independant leaned more toward republican whereas fe
 democrat.
 
 7 What are the ratio of political affiliation in each sex and married status in 2018?
+
 First, we filter out the NA value in year in the data set and extract the data only in 2018. We then use ggplot with masaic and facet grid to show the matrix. x variable in mosaic is year and and filled with political affiliation. The matrix grid are sex vs married. In the plot, we the political ratio of each married status and sex. From the plot, we can see in the widowed married have the largest ratio pf strong democrat in female and male and compared to other.
 
 
